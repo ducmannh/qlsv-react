@@ -10,7 +10,6 @@ export default function Header() {
         <Link className={css.link1} to="/search">Tìm Kiếm Sinh Viên</Link>
         <Link className={css.link1} to="/input">Sinh Viên</Link>
       </div>
-      <div>test</div>
     </div>
   );
 }

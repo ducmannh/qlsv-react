@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import css from "../styles/Table.module.css";
+import axios from "axios";
 
 export default function Table({ handleAddStudent, idRef }) {
   const navigate = useNavigate();
@@ -43,14 +44,23 @@ export default function Table({ handleAddStudent, idRef }) {
     );
     console.log("aaa");
   };
-  useEffect(() => {
-    const storedStudents = JSON.parse(localStorage.getItem("students"));
-    if (storedStudents) {
-      storedStudents.sort((a, b) => a.id - b.id);
-      setStudents(storedStudents);
-    }
-  }, [handleAddStudent]);
+  // useEffect(() => {
+  //   const storedStudents = JSON.parse(localStorage.getItem("students"));
+  //   if (storedStudents) {
+  //     storedStudents.sort((a, b) => a.id - b.id);
+  //     setStudents(storedStudents);
+  //   }
+  // }, [handleAddStudent]);
 
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url:'https://localhost:7000/api/NewTables'
+    }).then(function (response) {
+      console.log(response)
+      setStudents(response.data)
+    })
+  })
   return (
     <div>
       <div className={css.div3}>
@@ -92,11 +102,11 @@ export default function Table({ handleAddStudent, idRef }) {
                           onChange={(e) => handleSelectedStudent(e, student)}
                         />
                       </td>
-                      <td>{student.id}</td>
-                      <td>{student.name}</td>
-                      <td>{student.date}</td>
+                      <td>{student.idStudent}</td>
+                      <td>{student.nameStudent}</td>
+                      <td>{student.birthdayStudent}</td>
                       <td>{student.gender}</td>
-                      <td>{student.faculty}</td>
+                      <td>{student.nameFaculty}</td>
                       <td>
                         <button
                           className={css.button2}

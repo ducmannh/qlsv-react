@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import css from "../styles/Input.module.css";
 import Table from "./Table";
 import { useLocation } from "react-router-dom";
+import axios from "axios"
 export default function Input() {
   const [students, setStudents] = useState([]);
   const [id, setID] = useState("");
@@ -78,6 +79,12 @@ export default function Input() {
     }
   }, []);
 
+  axios({
+    method: 'get',
+    url:'https://localhost:7000/api/NewTables'
+  }).then(function (response) {
+    console.log(response)
+  })
   return (
     <div>
       <div className={css.div1}>
